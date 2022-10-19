@@ -24,6 +24,7 @@ import android.R.attr.pivotX
 
 import android.R.attr.angle
 import android.app.ActionBar
+import android.graphics.BitmapFactory
 import android.widget.*
 
 
@@ -38,7 +39,18 @@ class MainActivity : AppCompatActivity() {
         var edRotacja = findViewById<EditText>(R.id.rotacja)
         var edObrot = findViewById<EditText>(R.id.obrot)
         var bedytuj = findViewById<Button>(R.id.bedytuj)
-        var licznik = 1
+
+
+        var red = findViewById<ToggleButton>(R.id.tBred)
+        var blue = findViewById<ToggleButton>(R.id.tBblue)
+        var green = findViewById<ToggleButton>(R.id.tBgreen)
+
+
+       //val bitmap = BitmapFactory.decodeResource()
+        val bitmapCzerwony = BitmapFactory.decodeResource(resources, R.drawable.czerwony)
+        val bitmapNiebieski = BitmapFactory.decodeResource(resources,R.drawable.niebieski)
+        val bitmapZielony = BitmapFactory.decodeResource(resources,R.drawable.zielony)
+        val filterBitmap = Bitmap.createBitmap(bitmap.width,bitmap.height,Bitmap.Config.ARGB_8888)
 
         ibKamera.isEnabled = false
 
