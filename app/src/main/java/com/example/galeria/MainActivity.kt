@@ -33,8 +33,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         var ukryj = findViewById<CheckBox>(R.id.checkBox);
         var obrazek = findViewById<ImageView>(R.id.imageView)
-        var ibPrawo = findViewById<ImageButton>(R.id.ibPrawo)
-        var ibLewo = findViewById<ImageButton>(R.id.ibLewo)
+
         var ibKamera = findViewById<ImageButton>(R.id.ibKamera)
         var edRotacja = findViewById<EditText>(R.id.rotacja)
         var edObrot = findViewById<EditText>(R.id.obrot)
@@ -64,24 +63,24 @@ class MainActivity : AppCompatActivity() {
         }
 
         bedytuj.setOnClickListener {
-            Toast.makeText( this,"wpisz dane!",
-                Toast.LENGTH_LONG).show();
-            //if(edRotacja.getText() == null || edObrot.getText()  == null || edRotacja.getText()  == null && edObrot.getText()  == null ) {
+
+            if(edRotacja.getText().isEmpty() || edObrot.getText().isEmpty()) {
+                Toast.makeText( this,"wpisz dane!",
+                    Toast.LENGTH_LONG).show();
+
+            }else {
 
 
-            //}
+                val nowys: String = edRotacja.getText().toString()
+                val nowyi = nowys.toInt()
+                val nowys2: String = edObrot.getText().toString()
+                val nowyi2 = nowys2.toFloat()
 
-
-            val nowys: String = edRotacja.getText().toString()
-            val nowyi = nowys.toInt()
-            val nowys2: String = edObrot.getText().toString()
-            val nowyi2 = nowys2.toFloat()
-
-            obrazek.requestLayout()
-            obrazek.getLayoutParams().height = nowyi
-            obrazek.getLayoutParams().width = nowyi
-            obrazek.setRotation(nowyi2)
-
+                obrazek.requestLayout()
+                obrazek.getLayoutParams().height = nowyi
+                obrazek.getLayoutParams().width = nowyi
+                obrazek.setRotation(nowyi2)
+            }
         }
 
 
