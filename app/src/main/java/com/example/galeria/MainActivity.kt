@@ -40,67 +40,63 @@ class MainActivity : AppCompatActivity() {
         var edObrot = findViewById<EditText>(R.id.obrot)
         var bedytuj = findViewById<Button>(R.id.bedytuj)
         var licznik = 1
+
         ibKamera.isEnabled = false
 
 
         //sprawdzanie czy mamy pozwolenie na kamere
-        if(ActivityCompat.checkSelfPermission(this, android.Manifest.permission.CAMERA) !=
-                PackageManager.PERMISSION_GRANTED){
-            ActivityCompat.requestPermissions(this, arrayOf(android.Manifest.permission.CAMERA), 111)
-        }else
+        if (ActivityCompat.checkSelfPermission(
+                this,
+                android.Manifest.permission.CAMERA
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            ActivityCompat.requestPermissions(
+                this,
+                arrayOf(android.Manifest.permission.CAMERA),
+                111
+            )
+        } else
             ibKamera.isEnabled = true
 
-            ibKamera.setOnClickListener {
-                var i = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-                startActivityForResult(i, 101)
-            }
+        ibKamera.setOnClickListener {
+            var i = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+            startActivityForResult(i, 101)
+        }
 
-       bedytuj.setOnClickListener {
-           val nowys: String = edRotacja.getText().toString()
-           val nowyi = nowys.toInt()
-           val nowys2: String = edObrot.getText().toString()
-           val nowyi2 = nowys2.toFloat()
-
-           obrazek.requestLayout()
-           obrazek.getLayoutParams().height = nowyi
-           obrazek.getLayoutParams().width = nowyi
-           obrazek.setRotation(nowyi2)
-
-       }
+        bedytuj.setOnClickListener {
+            Toast.makeText( this,"wpisz dane!",
+                Toast.LENGTH_LONG).show();
+            //if(edRotacja.getText() == null || edObrot.getText()  == null || edRotacja.getText()  == null && edObrot.getText()  == null ) {
 
 
+            //}
+
+
+            val nowys: String = edRotacja.getText().toString()
+            val nowyi = nowys.toInt()
+            val nowys2: String = edObrot.getText().toString()
+            val nowyi2 = nowys2.toFloat()
+
+            obrazek.requestLayout()
+            obrazek.getLayoutParams().height = nowyi
+            obrazek.getLayoutParams().width = nowyi
+            obrazek.setRotation(nowyi2)
+
+        }
 
 
         //ukrywanie obrazków
         ukryj.setOnClickListener {
-            if(ukryj.isChecked()){
+            if (ukryj.isChecked()) {
                 obrazek.setVisibility(View.INVISIBLE)
-            }else{
+            } else {
                 obrazek.setVisibility(View.VISIBLE)
             }
         }
         //ruch w prawo
-        ibPrawo.setOnClickListener{
-            licznik++
-            when(licznik) {
-                1 -> obrazek.setImageResource(R.drawable.ev1)
-                2 -> obrazek.setImageResource(R.drawable.ev2)
-                3 -> obrazek.setImageResource(R.drawable.f)
-                4 -> obrazek.setImageResource(R.drawable.exo)
 
-            }
-        }
         //ruch w lewo
-       ibLewo.setOnClickListener{
-            licznik--
-            when(licznik) {
-                1 -> obrazek.setImageResource(R.drawable.ev1)
-                2 -> obrazek.setImageResource(R.drawable.ev2)
-                3 -> obrazek.setImageResource(R.drawable.f)
-                4 -> obrazek.setImageResource(R.drawable.exo)
-            }
 
-        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
