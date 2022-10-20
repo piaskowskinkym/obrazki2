@@ -39,39 +39,55 @@ class MainActivity : AppCompatActivity() {
 
         var ibKamera = findViewById<ImageButton>(R.id.ibKamera)
         var edRotacja = findViewById<EditText>(R.id.rotacja)
-        var edObrot = findViewById<EditText>(R.id.obrot)
         var bedytuj = findViewById<Button>(R.id.bedytuj)
         var slider = findViewById<SeekBar>(R.id.seekBar)
-
+        var slider2 = findViewById<SeekBar>(R.id.seekBar)
         var red = findViewById<ToggleButton>(R.id.tBred)
         var blue = findViewById<ToggleButton>(R.id.tBblue)
         var green = findViewById<ToggleButton>(R.id.tBgreen)
 
 
 
-        val bitmapCzerwony = BitmapFactory.decodeResource(resources, R.drawable.czerwony)
-        val bitmapNiebieski = BitmapFactory.decodeResource(resources,R.drawable.niebieski)
-        val bitmapZielony = BitmapFactory.decodeResource(resources,R.drawable.zielony)
 
 
         ibKamera.isEnabled = false
 
 
+
+
         slider.setOnSeekBarChangeListener(
             object : SeekBar.OnSeekBarChangeListener{
                 override fun onProgressChanged(p0: SeekBar?, progress: Int, fromUser: Boolean) {
-                    obrazek.setImageBitmap(rotate(progress.toFloat()))
+                    obrazek.rotation = progress.toFloat()
                 }
 
                 override fun onStartTrackingTouch(p0: SeekBar?) {
-                    TODO("Not yet implemented")
+
+                }
+
+                override fun onStopTrackingTouch(p0: SeekBar?) {
+
+                }
+            }
+        )
+
+        slider2.setOnSeekBarChangeListener(
+            object : SeekBar.OnSeekBarChangeListener{
+                override fun onStartTrackingTouch(p0: SeekBar?) {
+
                 }
 
                 override fun onStopTrackingTouch(p0: SeekBar?) {
                     TODO("Not yet implemented")
                 }
-            }
-        )
+
+                override fun onProgressChanged(p0: SeekBar?, progress: Int, p2: Boolean) {
+                   obrazek.scaleX = progress.toFloat()
+                    obrazek.scaleY = progress.toFloat()
+                }
+
+            })
+
 
         //sprawdzanie czy mamy pozwolenie na kamere
         if (ActivityCompat.checkSelfPermission(
@@ -93,7 +109,7 @@ class MainActivity : AppCompatActivity() {
 
         }
 
-        bedytuj.setOnClickListener {
+       /*bedytuj.setOnClickListener {
 
             if(edRotacja.getText().isEmpty() || edObrot.getText().isEmpty()) {
                 Toast.makeText( this,"wpisz dane!",
@@ -112,7 +128,7 @@ class MainActivity : AppCompatActivity() {
                 obrazek.getLayoutParams().width = nowyi
                 obrazek.setRotation(nowyi2)
             }
-        }
+        }*/
 
 
         //ukrywanie obrazków
@@ -169,20 +185,6 @@ class MainActivity : AppCompatActivity() {
         //ruch w lewo
 
 
-        fun Bitmap.rotate(degrees:Float = 180F):Bitmap?{
-            val matrix =Matrix()
-            matrix.postRotate(degrees)
-
-            return Bitmap.createBitmap(
-                this,
-                0,
-                0,
-                width,
-                height,
-                matrix,
-                false
-            )
-        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
