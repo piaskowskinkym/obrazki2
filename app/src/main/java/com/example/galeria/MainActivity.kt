@@ -59,7 +59,15 @@ class MainActivity : AppCompatActivity() {
 
         slider.setOnSeekBarChangeListener(
             object : SeekBar.OnSeekBarChangeListener{
-                override fun onProgressChanged(p0: SeekBar?, p1: Int, p2: Boolean) {
+                override fun onProgressChanged(p0: SeekBar?, progress: Int, fromUser: Boolean) {
+                    obrazek.setImageBitmap(rotate(progress.toFloat()))
+                }
+
+                override fun onStartTrackingTouch(p0: SeekBar?) {
+                    TODO("Not yet implemented")
+                }
+
+                override fun onStopTrackingTouch(p0: SeekBar?) {
                     TODO("Not yet implemented")
                 }
             }
@@ -160,6 +168,21 @@ class MainActivity : AppCompatActivity() {
 
         //ruch w lewo
 
+
+        fun Bitmap.rotate(degrees:Float = 180F):Bitmap?{
+            val matrix =Matrix()
+            matrix.postRotate(degrees)
+
+            return Bitmap.createBitmap(
+                this,
+                0,
+                0,
+                width,
+                height,
+                matrix,
+                false
+            )
+        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
