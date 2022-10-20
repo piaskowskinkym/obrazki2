@@ -25,6 +25,8 @@ import android.R.attr.pivotX
 import android.R.attr.angle
 import android.app.ActionBar
 import android.graphics.BitmapFactory
+import android.graphics.Color
+import android.graphics.PorterDuff
 import android.widget.*
 
 
@@ -39,21 +41,29 @@ class MainActivity : AppCompatActivity() {
         var edRotacja = findViewById<EditText>(R.id.rotacja)
         var edObrot = findViewById<EditText>(R.id.obrot)
         var bedytuj = findViewById<Button>(R.id.bedytuj)
-
+        var slider = findViewById<SeekBar>(R.id.seekBar)
 
         var red = findViewById<ToggleButton>(R.id.tBred)
         var blue = findViewById<ToggleButton>(R.id.tBblue)
         var green = findViewById<ToggleButton>(R.id.tBgreen)
 
 
-       //val bitmap = BitmapFactory.decodeResource()
+
         val bitmapCzerwony = BitmapFactory.decodeResource(resources, R.drawable.czerwony)
         val bitmapNiebieski = BitmapFactory.decodeResource(resources,R.drawable.niebieski)
         val bitmapZielony = BitmapFactory.decodeResource(resources,R.drawable.zielony)
-        val filterBitmap = Bitmap.createBitmap(bitmap.width,bitmap.height,Bitmap.Config.ARGB_8888)
+
 
         ibKamera.isEnabled = false
 
+
+        slider.setOnSeekBarChangeListener(
+            object : SeekBar.OnSeekBarChangeListener{
+                override fun onProgressChanged(p0: SeekBar?, p1: Int, p2: Boolean) {
+                    TODO("Not yet implemented")
+                }
+            }
+        )
 
         //sprawdzanie czy mamy pozwolenie na kamere
         if (ActivityCompat.checkSelfPermission(
@@ -72,6 +82,7 @@ class MainActivity : AppCompatActivity() {
         ibKamera.setOnClickListener {
             var i = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
             startActivityForResult(i, 101)
+
         }
 
         bedytuj.setOnClickListener {
@@ -104,7 +115,48 @@ class MainActivity : AppCompatActivity() {
                 obrazek.setVisibility(View.VISIBLE)
             }
         }
-        //ruch w prawo
+
+      red.setOnCheckedChangeListener { compoundButton, isChecked ->
+          if (blue.isChecked || green.isChecked) {
+              Toast.makeText( this, " Odznacz niebieski lub zielony!",
+                  Toast.LENGTH_LONG).show();
+
+          }else{
+              if(isChecked){
+                  obrazek.setColorFilter(Color.RED,PorterDuff.Mode.OVERLAY)
+              }else{
+                  obrazek.clearColorFilter()
+              }
+          }
+      }
+        blue.setOnCheckedChangeListener { compoundButton, isChecked ->
+            if (red.isChecked || green.isChecked) {
+                Toast.makeText( this, " Odznacz czerwony lub zielony!",
+                    Toast.LENGTH_LONG).show();
+
+            }else{
+                if(isChecked){
+                    obrazek.setColorFilter(Color.BLUE,PorterDuff.Mode.OVERLAY)
+                }else{
+                    obrazek.clearColorFilter()
+                }
+            }
+        }
+        green.setOnCheckedChangeListener { compoundButton, isChecked ->
+            if (blue.isChecked || red.isChecked) {
+                Toast.makeText( this, " Odznacz czerwony lub niebieski!",
+                    Toast.LENGTH_LONG).show();
+
+            }else{
+                if(isChecked){
+                    obrazek.setColorFilter(Color.GREEN,PorterDuff.Mode.OVERLAY)
+                }else{
+                    obrazek.clearColorFilter()
+                }
+            }
+        }
+
+                //ruch w prawo
 
         //ruch w lewo
 
@@ -118,6 +170,7 @@ class MainActivity : AppCompatActivity() {
             var zdjecie: Bitmap?
             zdjecie = data?.getParcelableExtra("data")
             findViewById<ImageView>(R.id.imageView).setImageBitmap(zdjecie)
+
         }
     }
 
