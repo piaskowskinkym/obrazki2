@@ -47,7 +47,9 @@ class MainActivity : AppCompatActivity() {
         var green = findViewById<ToggleButton>(R.id.tBgreen)
 
 
-
+        slider.isEnabled = false
+        slider2.isEnabled = false
+        bedytuj. isEnabled = false
 
 
         ibKamera.isEnabled = false
@@ -204,6 +206,9 @@ class MainActivity : AppCompatActivity() {
         {
             setContentView(R.layout.activity_main)
             ibKamera.isEnabled = true
+            findViewById<SeekBar>(R.id.seekBar).isEnabled = true
+            findViewById<SeekBar>(R.id.seekBar2).isEnabled = true
+            bedytuj. isEnabled = true
         }
     }
 
