@@ -41,7 +41,7 @@ class MainActivity : AppCompatActivity() {
         var edRotacja = findViewById<EditText>(R.id.rotacja)
         var bedytuj = findViewById<Button>(R.id.bedytuj)
         var slider = findViewById<SeekBar>(R.id.seekBar)
-        var slider2 = findViewById<SeekBar>(R.id.seekBar)
+        var slider2 = findViewById<SeekBar>(R.id.seekBar2)
         var red = findViewById<ToggleButton>(R.id.tBred)
         var blue = findViewById<ToggleButton>(R.id.tBblue)
         var green = findViewById<ToggleButton>(R.id.tBgreen)
@@ -78,12 +78,11 @@ class MainActivity : AppCompatActivity() {
                 }
 
                 override fun onStopTrackingTouch(p0: SeekBar?) {
-                    TODO("Not yet implemented")
+
                 }
 
-                override fun onProgressChanged(p0: SeekBar?, progress: Int, p2: Boolean) {
-                   obrazek.scaleX = progress.toFloat()
-                    obrazek.scaleY = progress.toFloat()
+                override fun onProgressChanged(p0: SeekBar?, progress1: Int, p2: Boolean) {
+                   obrazek.imageAlpha = progress1
                 }
 
             })
@@ -109,26 +108,22 @@ class MainActivity : AppCompatActivity() {
 
         }
 
-       /*bedytuj.setOnClickListener {
+        bedytuj.setOnClickListener {
 
-            if(edRotacja.getText().isEmpty() || edObrot.getText().isEmpty()) {
+            if(edRotacja.getText().isEmpty() ) {
                 Toast.makeText( this,"wpisz dane!",
                     Toast.LENGTH_LONG).show();
 
             }else {
 
-
                 val nowys: String = edRotacja.getText().toString()
                 val nowyi = nowys.toInt()
-                val nowys2: String = edObrot.getText().toString()
-                val nowyi2 = nowys2.toFloat()
 
                 obrazek.requestLayout()
                 obrazek.getLayoutParams().height = nowyi
                 obrazek.getLayoutParams().width = nowyi
-                obrazek.setRotation(nowyi2)
             }
-        }*/
+        }
 
 
         //ukrywanie obrazków
